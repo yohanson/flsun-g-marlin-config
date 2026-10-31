@@ -1557,7 +1557,13 @@
 
   //#define MEDIA_MENU_AT_TOP               // Force the media menu to be listed on the top of the main menu
 
-  #define EVENT_GCODE_SD_ABORT "G10\nG28XYO\nG1 Z10 E-25 F720\nG1 X290 Y30 F3000" // On "Stop print": home if needed, retract, lift Z by 10mm, retract 25mm, move head to the back
+                                                     // On "Stop print":
+  #define EVENT_GCODE_SD_ABORT  "G10\n"              // Retract
+                                "G28XYO\n"           // Home XY if needed
+                                "G91\n"              // Relative
+                                "G1 Z10 E-25 F720\n" // Lift Z by 10mm, retract 25mm
+                                "G90\n"              // Absolute
+                                "G1 X260 Y30 F3000"  // Move head to the back
 
   #if ENABLED(PRINTER_EVENT_LEDS)
     #define PE_LEDS_COMPLETED_TIME  (30*60) // (seconds) Time to keep the LED "done" color before restoring normal illumination
